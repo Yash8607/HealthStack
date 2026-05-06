@@ -1,0 +1,81 @@
+{
+  "permissions": {
+    "bash": "allow",
+    "read": "allow",
+    "write": {
+      "allow": [
+        "healthcare-ui/src/",
+        "healthcare-ui/public/",
+        "healthcare-ui/__tests__/",
+        "healthcare-ui/package.json",
+        "healthcare-ui/.env.local",
+        "healthcare-BE-services/src/",
+        "healthcare-BE-services/pom.xml",
+        "healthcare-BE-services/.env",
+        ".claude/",
+        "docs/",
+        "CLAUDE.md"
+      ],
+      "deny": [
+        "node_modules/",
+        "target/",
+        ".git/",
+        "dist/",
+        "build/",
+        ".next/",
+        "healthcare-ui/package-lock.json",
+        "healthcare-BE-services/target/"
+      ]
+    },
+    "edit": {
+      "allow": [
+        "healthcare-ui/src/",
+        "healthcare-BE-services/src/",
+        ".claude/",
+        "CLAUDE.md"
+      ],
+      "deny": [
+        "package.json",
+        "pom.xml",
+        "package-lock.json"
+      ]
+    }
+  },
+  "denyRules": [
+    "git push --force",
+    "rm -rf",
+    "DROP TABLE",
+    "DELETE FROM",
+    "git reset --hard"
+  ],
+  "environment": {
+    "NODE_ENV": "development",
+    "NEXT_PUBLIC_API_URL": "http://localhost:8080/api/v1",
+    "POSTGRES_URL": "postgresql://healthcare:healthcare@localhost:5432/healthcare_dev",
+    "JAVA_HOME": "/usr/libexec/java_home"
+  },
+  "hooks": {
+    "pre-commit": ".claude/hooks/pre-commit.sh",
+    "lint-on-save": ".claude/hooks/lint-on-save.sh"
+  },
+  "commands": [
+    {
+      "name": "fe-review",
+      "description": "Review frontend changes (lint, type-check, test)",
+      "script": ".claude/commands/fe-review.sh"
+    },
+    {
+      "name": "be-review",
+      "description": "Review backend changes (test, spotless)",
+      "script": ".claude/commands/be-review.sh"
+    },
+    {
+      "name": "arch-check",
+      "description": "Validate FE-BE module alignment and API contracts",
+      "script": ".claude/commands/architecture-check.sh"
+    }
+  ],
+  "model": "claude-opus-4-7",
+  "fast_model": "claude-opus-4-7",
+  "temperature": 0.7
+}

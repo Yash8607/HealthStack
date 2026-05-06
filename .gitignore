@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+.DS_Store?
+*.swp
+*.swo
+*~
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# Frontend
+healthcare-ui/node_modules/
+healthcare-ui/.next/
+healthcare-ui/dist/
+healthcare-ui/.env.local
+healthcare-ui/coverage/
+
+# Backend
+healthcare-BE-services/target/
+healthcare-BE-services/.classpath
+healthcare-BE-services/.project
+healthcare-BE-services/.settings/
+healthcare-BE-services/bin/
+
+# Runtime/Build artifacts
+.superpowers/
+*.log
+*.pid
+
+# Local dev
+.env
+db_data/
