@@ -15,8 +15,8 @@ HealthCareProject/
 ## Tech Stack
 
 **Frontend:** Next.js 14, React 18, TypeScript, Tailwind CSS
-**Backend:** Spring Boot 3, Java 17, PostgreSQL, WebSocket
-**DevOps:** Docker, Docker Compose
+**Backend:** Spring Boot 3, Java 17, H2 (dev), PostgreSQL (prod), WebSocket
+**DevOps:** Docker, Docker Compose (prod only)
 
 ## Key Workflows
 
@@ -34,18 +34,28 @@ npm test
 **Structure:** Feature-based modules → components, hooks, API, utils
 **Patterns:** React hooks, custom hooks, API service layer, TypeScript strict mode
 
-### Backend Development
+### Backend Development (H2 - no Docker)
 
 ```bash
 cd healthcare-BE-services
 mvn clean install
-mvn spring-boot:run   # Server at localhost:8080
-mvn test
+mvn spring-boot:run   # Server at localhost:8080 (uses H2 by default)
+mvn test              # Uses H2 in-memory
 mvn spotless:apply    # Auto-format
 ```
 
+**Database:** H2 file stored in `./data/healthcare_dev` (persists across restarts)
+**H2 Console:** Visit http://localhost:8080/h2-console to inspect database (sa / blank)
 **Structure:** Layered architecture → controller → service → repository → entity
 **Patterns:** Spring Boot best practices, JPA/Hibernate, exception handling, DTOs
+
+### Backend Development (PostgreSQL - prod)
+
+```bash
+cd healthcare-BE-services
+mvn clean install
+mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=prod"   # Uses PostgreSQL
+```
 
 ## Module Map
 
@@ -72,7 +82,10 @@ All responses follow:
 
 ## Database
 
-PostgreSQL running via Docker Compose. Migrations via Flyway in `healthcare-BE-services/src/main/resources/db/migration/`.
+**Development:** H2 file-based (auto-creates `./data/healthcare_dev`). No Docker required.
+**Production:** PostgreSQL via Docker Compose. 
+**Migrations:** Flyway in `healthcare-BE-services/src/main/resources/db/migration/` (compatible with both H2 & PostgreSQL)
+**H2 Console:** Available at `http://localhost:8080/h2-console` during dev (username: sa, password: blank)
 
 ## Rules & Patterns
 
@@ -141,11 +154,13 @@ Use `/arch-check` to validate FE-BE alignment.
 5. Test via integration tests
 ```
 
-**Run full stack locally:**
+**Run full stack locally (H2 - no Docker):**
 ```bash
-docker-compose up -d          # PostgreSQL
-cd healthcare-ui && npm run dev
+cd healthcare-ui && npm run dev &
 cd healthcare-BE-services && mvn spring-boot:run
+# Frontend at http://localhost:3000
+# Backend at http://localhost:8080
+# H2 Console at http://localhost:8080/h2-console
 ```
 
 ## Debugging Tips
@@ -159,7 +174,8 @@ cd healthcare-BE-services && mvn spring-boot:run
 **Backend:**
 - Check logs: `mvn spring-boot:run` output
 - Use breakpoints in IDE
-- Check database: `psql healthcare_dev`
+- Check H2 database: Visit http://localhost:8080/h2-console (sa / blank)
+- Or query file: `./data/healthcare_dev.mv.db`
 - `/be-review` for test failures
 
 ## Deployment
@@ -170,8 +186,10 @@ Backend: Docker container on AWS/GCP (CI/CD via GitHub Actions)
 ## Next Steps
 
 1. Install dependencies (npm, Maven)
-2. Start PostgreSQL (docker-compose)
-3. Seed hospital data (SQL scripts)
-4. Run dev servers
-5. Check API at http://localhost:8080/api/v1/hospitals
-6. Check frontend at http://localhost:3000
+2. No Docker needed for dev (H2 auto-creates database)
+3. Run `mvn spring-boot:run` in healthcare-BE-services (creates ./data/healthcare_dev)
+4. Run `npm run dev` in healthcare-ui
+5. Optional: Seed hospital data via SQL scripts (upload via H2 Console if needed)
+6. Check API at http://localhost:8080/api/v1/hospitals
+7. Check frontend at http://localhost:3000
+8. Inspect DB at http://localhost:8080/h2-console (sa / blank)

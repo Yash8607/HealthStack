@@ -3,17 +3,21 @@ spring:
     name: healthcare-services
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/healthcare_dev
-    username: healthcare
-    password: healthcare
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:file:./data/healthcare_dev;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         use_sql_comments: true
     show-sql: false
