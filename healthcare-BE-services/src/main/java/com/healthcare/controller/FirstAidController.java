@@ -22,4 +22,9 @@ public class FirstAidController {
     }
     return ResponseEntity.ok(firstAidService.getAll());
   }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<FirstAidDTO> getById(@PathVariable Long id) {
+    return ResponseEntity.ok(firstAidService.getById(id));
+  }
 }

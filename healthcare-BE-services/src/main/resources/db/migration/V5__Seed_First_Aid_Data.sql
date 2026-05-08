@@ -1,0 +1,35 @@
+INSERT INTO first_aid_articles (title, description, steps, precautions, category, published) VALUES
+('CPR for Adults',
+ 'Cardiopulmonary resuscitation (CPR) is a life-saving technique used when someone has stopped breathing or their heart has stopped beating.',
+ '1. Check the scene for safety|2. Check responsiveness by tapping the person and shouting|3. Call emergency services (112/911)|4. Place heel of hand on center of chest|5. Perform 30 chest compressions at 100-120 per minute|6. Give 2 rescue breaths|7. Repeat until help arrives',
+ 'Do not perform CPR on a conscious person. Ensure scene is safe before approaching.',
+ 'CARDIAC',
+ true),
+
+('Treatment for Burns',
+ 'Burns are injuries to the skin and underlying tissue caused by heat, chemicals, electricity, or radiation.',
+ '1. Remove person from source of burn|2. Cool the burn under cool running water for 10-20 minutes|3. Remove clothing and jewelry near the burn|4. Cover loosely with a clean non-stick dressing|5. Do not burst blisters|6. Seek medical help for large or deep burns',
+ 'Do not use ice, butter, or toothpaste on burns. Do not remove clothing stuck to the burn.',
+ 'BURNS',
+ true),
+
+('Choking in Adults',
+ 'Choking occurs when a foreign object gets lodged in the throat or windpipe, blocking the flow of air.',
+ '1. Ask the person to cough forcefully|2. Give up to 5 back blows between shoulder blades|3. Give up to 5 abdominal thrusts (Heimlich maneuver)|4. Alternate back blows and abdominal thrusts|5. Call emergency services if object is not dislodged',
+ 'Do not perform abdominal thrusts on pregnant women or infants. Use chest thrusts instead.',
+ 'CHOKING',
+ true),
+
+('Managing a Fracture',
+ 'A fracture is a break or crack in a bone. Do not attempt to straighten a broken bone.',
+ '1. Immobilize the injured area|2. Apply ice wrapped in cloth to reduce swelling|3. Elevate the limb if possible|4. Do not attempt to realign the bone|5. Seek immediate medical attention',
+ 'Do not move the person if a spinal injury is suspected. Keep the person still and calm.',
+ 'FRACTURES',
+ true),
+
+('Controlling Severe Bleeding',
+ 'Severe bleeding requires immediate first aid to prevent life-threatening blood loss.',
+ '1. Apply firm pressure with a clean cloth or bandage|2. Maintain continuous pressure for at least 10 minutes|3. Do not remove the cloth if it becomes soaked, add more on top|4. Elevate the injured area above heart level if possible|5. Call emergency services for severe wounds',
+ 'Do not apply a tourniquet unless trained. Do not remove embedded objects from wounds.',
+ 'BLEEDING',
+ true);

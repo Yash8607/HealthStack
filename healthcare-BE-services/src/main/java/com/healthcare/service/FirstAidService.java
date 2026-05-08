@@ -2,6 +2,7 @@ package com.healthcare.service;
 
 import com.healthcare.dto.FirstAidDTO;
 import com.healthcare.entity.FirstAid;
+import com.healthcare.exception.ResourceNotFoundException;
 import com.healthcare.repository.FirstAidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,14 @@ public class FirstAidService {
     return firstAidRepository.findByPublishedTrue().stream()
         .map(this::toDTO)
         .collect(Collectors.toList());
+  }
+
+  @Transactional(readOnly = true)
+  public FirstAidDTO getById(Long id) {
+    FirstAid firstAid = firstAidRepository.findById(id)
+        .filter(FirstAid::getPublished)
+        .orElseThrow(() -> new ResourceNotFoundException("First-aid article with ID " + id + " not found"));
+    return toDTO(firstAid);
   }
 
   @Transactional(readOnly = true)
