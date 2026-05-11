@@ -17,8 +17,8 @@ public class EmergencyAlertController {
   @Autowired private EmergencyAlertBroadcaster broadcaster;
 
   @MessageMapping("/emergency/subscribe")
-  public void subscribeToAlerts(@Payload SubscriptionRequest request,
-                                SimpMessageHeaderAccessor headerAccessor) {
+  public void subscribeToAlerts(
+      @Payload SubscriptionRequest request, SimpMessageHeaderAccessor headerAccessor) {
     String sessionId = headerAccessor.getSessionId();
     Long hospitalId = request.getHospitalId();
     log.info("Hospital {} subscribing to emergency alerts (session: {})", hospitalId, sessionId);

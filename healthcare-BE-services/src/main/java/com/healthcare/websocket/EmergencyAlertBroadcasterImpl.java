@@ -1,18 +1,17 @@
 package com.healthcare.websocket;
 
 import com.healthcare.entity.EmergencyRequest;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 /**
- * In-memory implementation of EmergencyAlertBroadcaster.
- * Maintains subscriptions in memory and notifies subscribed hospitals.
+ * In-memory implementation of EmergencyAlertBroadcaster. Maintains subscriptions in memory and
+ * notifies subscribed hospitals.
  *
- * TODO: Replace with WebSocket implementation for production.
+ * <p>TODO: Replace with WebSocket implementation for production.
  */
 @Service
 public class EmergencyAlertBroadcasterImpl implements EmergencyAlertBroadcaster {
@@ -29,10 +28,11 @@ public class EmergencyAlertBroadcasterImpl implements EmergencyAlertBroadcaster 
 
     if (subscriptions.containsKey(hospitalId)) {
       CopyOnWriteArrayList<String> sessions = subscriptions.get(hospitalId);
-      sessions.forEach(sessionId -> {
-        log.debug("Sending alert to session: {} for hospital: {}", sessionId, hospitalId);
-        // TODO: Send via WebSocket to sessionId with emergency details
-      });
+      sessions.forEach(
+          sessionId -> {
+            log.debug("Sending alert to session: {} for hospital: {}", sessionId, hospitalId);
+            // TODO: Send via WebSocket to sessionId with emergency details
+          });
     } else {
       log.info("No active subscriptions for hospital: {}", hospitalId);
     }
@@ -41,11 +41,12 @@ public class EmergencyAlertBroadcasterImpl implements EmergencyAlertBroadcaster 
   @Override
   public void broadcastToAll(EmergencyRequest emergency) {
     log.info("Broadcasting emergency to all hospitals");
-    subscriptions.forEach((hospitalId, sessions) -> {
-      if (hospitalId.equals(emergency.getHospital().getId())) {
-        notifyHospital(hospitalId, emergency);
-      }
-    });
+    subscriptions.forEach(
+        (hospitalId, sessions) -> {
+          if (hospitalId.equals(emergency.getHospital().getId())) {
+            notifyHospital(hospitalId, emergency);
+          }
+        });
   }
 
   @Override

@@ -28,6 +28,39 @@ Status: ✅ Documented
 
 ---
 
+## Internal Services & Infrastructure
+
+### Kafka Email Notifications
+
+Status: ✅ Implemented (Hospital + User Notifications)
+
+**Component:** Event-driven email notification system with two topics
+
+**Hospital Notifications:**
+- Topic: `healthcare.notification.email`
+- Consumer Group: `healthcare-email-group`
+- Purpose: Alert hospitals of incoming emergency requests
+
+**User Notifications:**
+- Topic: `healthcare.notification.user-email`
+- Consumer Group: `healthcare-user-email-group`
+- Purpose: Send confirmation emails to patients after emergency request submission
+
+**File:** [KAFKA_EMAIL_FLOW.md](./KAFKA_EMAIL_FLOW.md)
+
+**Features:**
+- Async email publishing via Kafka
+- Retry mechanism (max 3 retries with backoff)
+- Mock SMTP provider for development
+- Status tracking (PENDING, SENT, RETRY_PENDING, FAILED)
+- Emergency-type-specific first-aid guidance in user emails
+
+**Integration:**
+- Hospital alerts: `EmergencyService.createEmergency()` → publishes hospital notification
+- User confirmations: `EmergencyService.createEmergency()` → publishes user confirmation email with emergency details, hospital contact info, and first-aid guidance
+
+---
+
 ## Planned Modules
 
 - [ ] Hospital Management (`/api/v1/hospitals`)
@@ -99,4 +132,5 @@ Set `NOTION_TOKEN` + `NOTION_DATABASE_ID` in `.claude/settings.json`
 ## Last Updated
 
 - Emergency API: 2026-05-07
-- Index: 2026-05-07
+- Kafka Email Notifications: 2026-05-11
+- Index: 2026-05-11

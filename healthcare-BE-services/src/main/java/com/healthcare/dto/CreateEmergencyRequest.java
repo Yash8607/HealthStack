@@ -25,31 +25,90 @@ public class CreateEmergencyRequest {
   @Size(max = 20, message = "Phone number must not exceed 20 characters")
   private String userPhone;
 
+  @Email(message = "User email must be valid")
+  @NotBlank(message = "User email is required")
+  private String userEmail;
+
+  @Size(max = 255, message = "Patient name must not exceed 255 characters")
+  private String patientName;
+
   // Constructors
   public CreateEmergencyRequest() {}
 
-  public CreateEmergencyRequest(Double latitude, Double longitude, String emergencyType,
-                                Long hospitalId, String userPhone) {
+  public CreateEmergencyRequest(
+      Double latitude,
+      Double longitude,
+      String emergencyType,
+      Long hospitalId,
+      String userPhone,
+      String userEmail,
+      String patientName) {
     this.latitude = latitude;
     this.longitude = longitude;
     this.emergencyType = emergencyType;
     this.hospitalId = hospitalId;
     this.userPhone = userPhone;
+    this.userEmail = userEmail;
+    this.patientName = patientName;
   }
 
   // Getters
-  public Double getLatitude() { return latitude; }
-  public Double getLongitude() { return longitude; }
-  public String getEmergencyType() { return emergencyType; }
-  public Long getHospitalId() { return hospitalId; }
-  public String getUserPhone() { return userPhone; }
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public String getEmergencyType() {
+    return emergencyType;
+  }
+
+  public Long getHospitalId() {
+    return hospitalId;
+  }
+
+  public String getUserPhone() {
+    return userPhone;
+  }
+
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+  public String getPatientName() {
+    return patientName;
+  }
 
   // Setters
-  public void setLatitude(Double latitude) { this.latitude = latitude; }
-  public void setLongitude(Double longitude) { this.longitude = longitude; }
-  public void setEmergencyType(String emergencyType) { this.emergencyType = emergencyType; }
-  public void setHospitalId(Long hospitalId) { this.hospitalId = hospitalId; }
-  public void setUserPhone(String userPhone) { this.userPhone = userPhone; }
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
+  }
+
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
+  }
+
+  public void setEmergencyType(String emergencyType) {
+    this.emergencyType = emergencyType;
+  }
+
+  public void setHospitalId(Long hospitalId) {
+    this.hospitalId = hospitalId;
+  }
+
+  public void setUserPhone(String userPhone) {
+    this.userPhone = userPhone;
+  }
+
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
+  public void setPatientName(String patientName) {
+    this.patientName = patientName;
+  }
 
   // Builder
   public static Builder builder() {
@@ -62,7 +121,9 @@ public class CreateEmergencyRequest {
         .longitude(this.longitude)
         .emergencyType(this.emergencyType)
         .hospitalId(this.hospitalId)
-        .userPhone(this.userPhone);
+        .userPhone(this.userPhone)
+        .userEmail(this.userEmail)
+        .patientName(this.patientName);
   }
 
   public static class Builder {
@@ -71,15 +132,47 @@ public class CreateEmergencyRequest {
     private String emergencyType;
     private Long hospitalId;
     private String userPhone;
+    private String userEmail;
+    private String patientName;
 
-    public Builder latitude(Double latitude) { this.latitude = latitude; return this; }
-    public Builder longitude(Double longitude) { this.longitude = longitude; return this; }
-    public Builder emergencyType(String emergencyType) { this.emergencyType = emergencyType; return this; }
-    public Builder hospitalId(Long hospitalId) { this.hospitalId = hospitalId; return this; }
-    public Builder userPhone(String userPhone) { this.userPhone = userPhone; return this; }
+    public Builder latitude(Double latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(Double longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
+    public Builder emergencyType(String emergencyType) {
+      this.emergencyType = emergencyType;
+      return this;
+    }
+
+    public Builder hospitalId(Long hospitalId) {
+      this.hospitalId = hospitalId;
+      return this;
+    }
+
+    public Builder userPhone(String userPhone) {
+      this.userPhone = userPhone;
+      return this;
+    }
+
+    public Builder userEmail(String userEmail) {
+      this.userEmail = userEmail;
+      return this;
+    }
+
+    public Builder patientName(String patientName) {
+      this.patientName = patientName;
+      return this;
+    }
 
     public CreateEmergencyRequest build() {
-      return new CreateEmergencyRequest(latitude, longitude, emergencyType, hospitalId, userPhone);
+      return new CreateEmergencyRequest(
+          latitude, longitude, emergencyType, hospitalId, userPhone, userEmail, patientName);
     }
   }
 }

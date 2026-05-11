@@ -1,18 +1,15 @@
-
 package com.healthcare.controller;
 
 import com.healthcare.dto.CreateEmergencyRequest;
 import com.healthcare.dto.EmergencyResponseDTO;
 import com.healthcare.service.EmergencyService;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/emergency")
@@ -21,7 +18,6 @@ public class EmergencyController {
   private static final Logger log = LoggerFactory.getLogger(EmergencyController.class);
   private final EmergencyService emergencyService;
 
-  
   public EmergencyController(EmergencyService emergencyService) {
     this.emergencyService = emergencyService;
   }
@@ -29,9 +25,9 @@ public class EmergencyController {
   /**
    * Submit emergency request to alert nearby hospital.
    *
-   * Request: POST /api/v1/emergency
-   * Body: CreateEmergencyRequest (latitude, longitude, emergencyType, hospitalId, userPhone)
-   * Response: 201 CREATED with EmergencyResponseDTO containing hospital alert details
+   * <p>Request: POST /api/v1/emergency Body: CreateEmergencyRequest (latitude, longitude,
+   * emergencyType, hospitalId, userPhone) Response: 201 CREATED with EmergencyResponseDTO
+   * containing hospital alert details
    *
    * @param request emergency request with location and hospital ID
    * @return created emergency response with hospital details
@@ -50,8 +46,8 @@ public class EmergencyController {
   /**
    * Get all emergency requests for a specific hospital.
    *
-   * Request: GET /api/v1/emergency/hospital/{hospitalId}
-   * Response: 200 OK with list of emergency responses
+   * <p>Request: GET /api/v1/emergency/hospital/{hospitalId} Response: 200 OK with list of emergency
+   * responses
    *
    * @param hospitalId hospital identifier
    * @return list of emergency requests for hospital
@@ -70,8 +66,7 @@ public class EmergencyController {
   /**
    * Get currently active emergency requests (INITIATED status).
    *
-   * Request: GET /api/v1/emergency/active
-   * Response: 200 OK with list of active emergencies
+   * <p>Request: GET /api/v1/emergency/active Response: 200 OK with list of active emergencies
    *
    * @return list of active emergency requests
    */
@@ -88,8 +83,8 @@ public class EmergencyController {
   /**
    * Get emergency requests from last N minutes.
    *
-   * Request: GET /api/v1/emergency/recent?minutes=30
-   * Response: 200 OK with list of recent emergencies
+   * <p>Request: GET /api/v1/emergency/recent?minutes=30 Response: 200 OK with list of recent
+   * emergencies
    *
    * @param minutes time window in minutes (default 30)
    * @return list of recent emergency requests
@@ -106,11 +101,10 @@ public class EmergencyController {
   }
 
   /**
-   * Update emergency request status.
-   * Used by hospitals to acknowledge or update emergency status.
+   * Update emergency request status. Used by hospitals to acknowledge or update emergency status.
    *
-   * Request: PATCH /api/v1/emergency/{emergencyId}/status?status=ACKNOWLEDGED
-   * Response: 200 OK with updated emergency response
+   * <p>Request: PATCH /api/v1/emergency/{emergencyId}/status?status=ACKNOWLEDGED Response: 200 OK
+   * with updated emergency response
    *
    * @param emergencyId emergency request ID
    * @param status new status (ACKNOWLEDGED, DISPATCHED, ARRIVED, COMPLETED, CANCELLED)

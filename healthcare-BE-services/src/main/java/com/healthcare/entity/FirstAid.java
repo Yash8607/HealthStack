@@ -1,10 +1,9 @@
 package com.healthcare.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "first_aid_articles")
@@ -42,9 +41,16 @@ public class FirstAid {
 
   public FirstAid() {}
 
-  public FirstAid(Long id, String title, String description, String steps,
-                  String precautions, String category, Boolean published,
-                  LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public FirstAid(
+      Long id,
+      String title,
+      String description,
+      String steps,
+      String precautions,
+      String category,
+      Boolean published,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -56,23 +62,75 @@ public class FirstAid {
     this.updatedAt = updatedAt;
   }
 
-  public Long getId() { return id; }
-  public String getTitle() { return title; }
-  public String getDescription() { return description; }
-  public String getSteps() { return steps; }
-  public String getPrecautions() { return precautions; }
-  public String getCategory() { return category; }
-  public Boolean getPublished() { return published; }
-  public LocalDateTime getCreatedAt() { return createdAt; }
-  public LocalDateTime getUpdatedAt() { return updatedAt; }
+  public Long getId() {
+    return id;
+  }
 
-  public void setId(Long id) { this.id = id; }
-  public void setTitle(String title) { this.title = title; }
-  public void setDescription(String description) { this.description = description; }
-  public void setSteps(String steps) { this.steps = steps; }
-  public void setPrecautions(String precautions) { this.precautions = precautions; }
-  public void setCategory(String category) { this.category = category; }
-  public void setPublished(Boolean published) { this.published = published; }
-  public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-  public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+  public String getTitle() {
+    return title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getSteps() {
+    return steps;
+  }
+
+  public String getPrecautions() {
+    return precautions;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public Boolean getPublished() {
+    return published;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setSteps(String steps) {
+    this.steps = steps;
+  }
+
+  public void setPrecautions(String precautions) {
+    this.precautions = precautions;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public void setPublished(Boolean published) {
+    this.published = published;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

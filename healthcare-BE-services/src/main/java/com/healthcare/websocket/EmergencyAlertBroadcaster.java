@@ -3,14 +3,13 @@ package com.healthcare.websocket;
 import com.healthcare.entity.EmergencyRequest;
 
 /**
- * Service for broadcasting emergency alerts to hospitals via WebSocket.
- * Hospitals subscribe to alerts and receive real-time notifications when emergencies occur nearby.
+ * Service for broadcasting emergency alerts to hospitals via WebSocket. Hospitals subscribe to
+ * alerts and receive real-time notifications when emergencies occur nearby.
  */
 public interface EmergencyAlertBroadcaster {
 
   /**
-   * Notify hospital of new emergency request.
-   * Hospital must be subscribed to receive the alert.
+   * Notify hospital of new emergency request. Hospital must be subscribed to receive the alert.
    *
    * @param hospitalId ID of hospital to notify
    * @param emergency emergency request details

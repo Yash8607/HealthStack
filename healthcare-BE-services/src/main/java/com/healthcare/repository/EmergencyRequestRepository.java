@@ -1,11 +1,10 @@
 package com.healthcare.repository;
 
 import com.healthcare.entity.EmergencyRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmergencyRequestRepository extends JpaRepository<EmergencyRequest, Long> {

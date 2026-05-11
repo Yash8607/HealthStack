@@ -1,12 +1,11 @@
 package com.healthcare.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "departments")
@@ -39,8 +38,14 @@ public class Department {
 
   public Department() {}
 
-  public Department(Long id, Hospital hospital, String name, String description,
-                    List<Doctor> doctors, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public Department(
+      Long id,
+      Hospital hospital,
+      String name,
+      String description,
+      List<Doctor> doctors,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.hospital = hospital;
     this.name = name;
@@ -50,19 +55,59 @@ public class Department {
     this.updatedAt = updatedAt;
   }
 
-  public Long getId() { return id; }
-  public Hospital getHospital() { return hospital; }
-  public String getName() { return name; }
-  public String getDescription() { return description; }
-  public List<Doctor> getDoctors() { return doctors; }
-  public LocalDateTime getCreatedAt() { return createdAt; }
-  public LocalDateTime getUpdatedAt() { return updatedAt; }
+  public Long getId() {
+    return id;
+  }
 
-  public void setId(Long id) { this.id = id; }
-  public void setHospital(Hospital hospital) { this.hospital = hospital; }
-  public void setName(String name) { this.name = name; }
-  public void setDescription(String description) { this.description = description; }
-  public void setDoctors(List<Doctor> doctors) { this.doctors = doctors; }
-  public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-  public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+  public Hospital getHospital() {
+    return hospital;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public List<Doctor> getDoctors() {
+    return doctors;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setHospital(Hospital hospital) {
+    this.hospital = hospital;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setDoctors(List<Doctor> doctors) {
+    this.doctors = doctors;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

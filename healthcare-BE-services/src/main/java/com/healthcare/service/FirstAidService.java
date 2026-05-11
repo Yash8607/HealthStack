@@ -4,12 +4,11 @@ import com.healthcare.dto.FirstAidDTO;
 import com.healthcare.entity.FirstAid;
 import com.healthcare.exception.ResourceNotFoundException;
 import com.healthcare.repository.FirstAidRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FirstAidService {
@@ -25,9 +24,14 @@ public class FirstAidService {
 
   @Transactional(readOnly = true)
   public FirstAidDTO getById(Long id) {
-    FirstAid firstAid = firstAidRepository.findById(id)
-        .filter(FirstAid::getPublished)
-        .orElseThrow(() -> new ResourceNotFoundException("First-aid article with ID " + id + " not found"));
+    FirstAid firstAid =
+        firstAidRepository
+            .findById(id)
+            .filter(FirstAid::getPublished)
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "First-aid article with ID " + id + " not found"));
     return toDTO(firstAid);
   }
 
@@ -48,7 +52,6 @@ public class FirstAidService {
         firstAid.getCategory(),
         firstAid.getPublished(),
         firstAid.getCreatedAt(),
-        firstAid.getUpdatedAt()
-    );
+        firstAid.getUpdatedAt());
   }
 }

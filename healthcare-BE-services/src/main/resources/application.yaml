@@ -33,6 +33,31 @@ spring:
       write-dates-as-timestamps: false
     default-property-inclusion: non_null
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: healthcare-user-email-group
+      auto-offset-reset: earliest
+      max-poll-records: 10
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yashmittal1603@gmail.com
+    password: "*************"
+    from: yashmittal1603@gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+app:
+  email:
+    enabled: true
+
 server:
   port: 8080
   servlet:

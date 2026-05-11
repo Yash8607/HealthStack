@@ -1,10 +1,9 @@
 package com.healthcare.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "beds")
@@ -38,8 +37,14 @@ public class Bed {
 
   public Bed() {}
 
-  public Bed(Long id, Hospital hospital, Department department, Integer totalBeds,
-             Integer occupiedBeds, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public Bed(
+      Long id,
+      Hospital hospital,
+      Department department,
+      Integer totalBeds,
+      Integer occupiedBeds,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.hospital = hospital;
     this.department = department;
@@ -49,20 +54,63 @@ public class Bed {
     this.updatedAt = updatedAt;
   }
 
-  public Long getId() { return id; }
-  public Hospital getHospital() { return hospital; }
-  public Department getDepartment() { return department; }
-  public Integer getTotalBeds() { return totalBeds; }
-  public Integer getOccupiedBeds() { return occupiedBeds; }
-  public Integer getAvailableBeds() { return totalBeds - occupiedBeds; }
-  public LocalDateTime getCreatedAt() { return createdAt; }
-  public LocalDateTime getUpdatedAt() { return updatedAt; }
+  public Long getId() {
+    return id;
+  }
 
-  public void setId(Long id) { this.id = id; }
-  public void setHospital(Hospital hospital) { this.hospital = hospital; }
-  public void setDepartment(Department department) { this.department = department; }
-  public void setTotalBeds(Integer totalBeds) { this.totalBeds = totalBeds; }
-  public void setOccupiedBeds(Integer occupiedBeds) { this.occupiedBeds = occupiedBeds; }
-  public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-  public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+  public Hospital getHospital() {
+    return hospital;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public Integer getTotalBeds() {
+    return totalBeds;
+  }
+
+  public Integer getOccupiedBeds() {
+    return occupiedBeds;
+  }
+
+  public Integer getAvailableBeds() {
+    return totalBeds - occupiedBeds;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setHospital(Hospital hospital) {
+    this.hospital = hospital;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  public void setTotalBeds(Integer totalBeds) {
+    this.totalBeds = totalBeds;
+  }
+
+  public void setOccupiedBeds(Integer occupiedBeds) {
+    this.occupiedBeds = occupiedBeds;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

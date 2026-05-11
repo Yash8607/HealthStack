@@ -48,7 +48,8 @@ public interface EmergencyMapper {
    * @return message text
    */
   private String composeMessage(String hospitalName) {
-    return "We've alerted " + hospitalName
+    return "We've alerted "
+        + hospitalName
         + ". They are being notified of your emergency. Call ambulance immediately if needed.";
   }
 }

@@ -25,7 +25,9 @@ Submit emergency alert to notify nearby hospital.
   "longitude": 77.1025,
   "emergencyType": "CARDIAC_ARREST",
   "hospitalId": 1,
-  "userPhone": "+91-98765432xx"
+  "userPhone": "+91-98765432xx",
+  "userEmail": "patient@example.com",
+  "patientName": "John Doe"
 }
 ```
 
@@ -38,6 +40,8 @@ Submit emergency alert to notify nearby hospital.
 | `emergencyType` | String | Required, 3-100 chars | "Emergency type must be between 3 and 100 characters" |
 | `hospitalId` | Long | Required, Positive | "Hospital ID must be positive" |
 | `userPhone` | String | Optional, Max 20 chars | "Phone number must not exceed 20 characters" |
+| `userEmail` | String | Required, Valid email format | "User email must be valid" |
+| `patientName` | String | Optional, Max 255 chars | "Patient name must not exceed 255 characters" |
 
 ### Response Body (201)
 

@@ -1,5 +1,9 @@
 package com.healthcare.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import com.healthcare.dto.CreateEmergencyRequest;
 import com.healthcare.dto.EmergencyResponseDTO;
 import com.healthcare.entity.EmergencyRequest;
@@ -10,20 +14,14 @@ import com.healthcare.mapper.EmergencyMapper;
 import com.healthcare.repository.EmergencyRequestRepository;
 import com.healthcare.repository.HospitalRepository;
 import com.healthcare.websocket.EmergencyAlertBroadcaster;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Emergency Service Tests")
@@ -42,44 +40,49 @@ class EmergencyServiceTest {
 
   @BeforeEach
   void setUp() {
-    validRequest = CreateEmergencyRequest.builder()
-        .latitude(28.7041)
-        .longitude(77.1025)
-        .emergencyType("CARDIAC_ARREST")
-        .hospitalId(1L)
-        .userPhone("+91-9876543210")
-        .build();
+    validRequest =
+        CreateEmergencyRequest.builder()
+            .latitude(28.7041)
+            .longitude(77.1025)
+            .emergencyType("CARDIAC_ARREST")
+            .hospitalId(1L)
+            .userPhone("+91-9876543210")
+            .build();
 
-    mockHospital = Hospital.builder()
-        .id(1L)
-        .name("Apollo Hospital")
-        .phone("+91-11-123456")
-        .address("Delhi, India")
-        .latitude(28.7041)
-        .longitude(77.1025)
-        .active(true)
-        .build();
-
-    mockEmergency = EmergencyRequest.builder()
-        .id(1L)
-        .hospital(mockHospital)
-        .userLatitude(28.7041)
-        .userLongitude(77.1025)
-        .emergencyType("CARDIAC_ARREST")
-        .status("INITIATED")
-        .userPhone("+91-9876543210")
-        .build();
-
-    mockResponse = EmergencyResponseDTO.builder()
-        .id(1L)
-        .status("INITIATED")
-        .message("We've alerted Apollo Hospital. Call ambulance immediately.")
-        .hospital(EmergencyResponseDTO.HospitalAlertDTO.builder()
+    mockHospital =
+        Hospital.builder()
             .id(1L)
             .name("Apollo Hospital")
             .phone("+91-11-123456")
-            .build())
-        .build();
+            .address("Delhi, India")
+            .latitude(28.7041)
+            .longitude(77.1025)
+            .active(true)
+            .build();
+
+    mockEmergency =
+        EmergencyRequest.builder()
+            .id(1L)
+            .hospital(mockHospital)
+            .userLatitude(28.7041)
+            .userLongitude(77.1025)
+            .emergencyType("CARDIAC_ARREST")
+            .status("INITIATED")
+            .userPhone("+91-9876543210")
+            .build();
+
+    mockResponse =
+        EmergencyResponseDTO.builder()
+            .id(1L)
+            .status("INITIATED")
+            .message("We've alerted Apollo Hospital. Call ambulance immediately.")
+            .hospital(
+                EmergencyResponseDTO.HospitalAlertDTO.builder()
+                    .id(1L)
+                    .name("Apollo Hospital")
+                    .phone("+91-11-123456")
+                    .build())
+            .build();
   }
 
   @Test
@@ -108,9 +111,12 @@ class EmergencyServiceTest {
   void testCreateEmergencyHospitalNotFound() {
     when(hospitalRepository.findById(999L)).thenReturn(Optional.empty());
 
-    ResourceNotFoundException exception = assertThrows(
-        ResourceNotFoundException.class,
-        () -> emergencyService.createEmergency(validRequest.toBuilder().hospitalId(999L).build()));
+    ResourceNotFoundException exception =
+        assertThrows(
+            ResourceNotFoundException.class,
+            () ->
+                emergencyService.createEmergency(
+                    validRequest.toBuilder().hospitalId(999L).build()));
 
     assertTrue(exception.getMessage().contains("not found"));
     verify(hospitalRepository).findById(999L);
@@ -123,9 +129,10 @@ class EmergencyServiceTest {
     mockHospital.setActive(false);
     when(hospitalRepository.findById(1L)).thenReturn(Optional.of(mockHospital));
 
-    HospitalNotAvailableException exception = assertThrows(
-        HospitalNotAvailableException.class,
-        () -> emergencyService.createEmergency(validRequest));
+    HospitalNotAvailableException exception =
+        assertThrows(
+            HospitalNotAvailableException.class,
+            () -> emergencyService.createEmergency(validRequest));
 
     assertTrue(exception.getMessage().contains("not currently accepting alerts"));
     verify(emergencyRepository, never()).save(any());
@@ -138,11 +145,12 @@ class EmergencyServiceTest {
     when(emergencyRepository.save(any(EmergencyRequest.class))).thenReturn(mockEmergency);
     when(mapper.toResponseDTO(any(), any())).thenReturn(mockResponse);
     doThrow(new RuntimeException("WebSocket unavailable"))
-        .when(alertBroadcaster).notifyHospital(1L, mockEmergency);
+        .when(alertBroadcaster)
+        .notifyHospital(1L, mockEmergency);
 
     // Should not throw exception
-    EmergencyResponseDTO result = assertDoesNotThrow(
-        () -> emergencyService.createEmergency(validRequest));
+    EmergencyResponseDTO result =
+        assertDoesNotThrow(() -> emergencyService.createEmergency(validRequest));
 
     assertNotNull(result);
     assertEquals(1L, result.getId());
@@ -167,9 +175,10 @@ class EmergencyServiceTest {
   void testUpdateStatusNotFound() {
     when(emergencyRepository.findById(999L)).thenReturn(Optional.empty());
 
-    ResourceNotFoundException exception = assertThrows(
-        ResourceNotFoundException.class,
-        () -> emergencyService.updateStatus(999L, "ACKNOWLEDGED"));
+    ResourceNotFoundException exception =
+        assertThrows(
+            ResourceNotFoundException.class,
+            () -> emergencyService.updateStatus(999L, "ACKNOWLEDGED"));
 
     assertTrue(exception.getMessage().contains("not found"));
   }

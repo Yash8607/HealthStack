@@ -22,10 +22,21 @@ public class HospitalDetailDTO {
 
   public HospitalDetailDTO() {}
 
-  public HospitalDetailDTO(Long id, String name, String address, Double latitude, Double longitude,
-                           String phone, String email, Integer establishedYear, Double rating,
-                           Boolean active, List<DepartmentDTO> departments, BedDTO beds,
-                           LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public HospitalDetailDTO(
+      Long id,
+      String name,
+      String address,
+      Double latitude,
+      Double longitude,
+      String phone,
+      String email,
+      Integer establishedYear,
+      Double rating,
+      Boolean active,
+      List<DepartmentDTO> departments,
+      BedDTO beds,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.name = name;
     this.address = address;
@@ -42,33 +53,115 @@ public class HospitalDetailDTO {
     this.updatedAt = updatedAt;
   }
 
-  public Long getId() { return id; }
-  public String getName() { return name; }
-  public String getAddress() { return address; }
-  public Double getLatitude() { return latitude; }
-  public Double getLongitude() { return longitude; }
-  public String getPhone() { return phone; }
-  public String getEmail() { return email; }
-  public Integer getEstablishedYear() { return establishedYear; }
-  public Double getRating() { return rating; }
-  public Boolean getActive() { return active; }
-  public List<DepartmentDTO> getDepartments() { return departments; }
-  public BedDTO getBeds() { return beds; }
-  public LocalDateTime getCreatedAt() { return createdAt; }
-  public LocalDateTime getUpdatedAt() { return updatedAt; }
+  public Long getId() {
+    return id;
+  }
 
-  public void setId(Long id) { this.id = id; }
-  public void setName(String name) { this.name = name; }
-  public void setAddress(String address) { this.address = address; }
-  public void setLatitude(Double latitude) { this.latitude = latitude; }
-  public void setLongitude(Double longitude) { this.longitude = longitude; }
-  public void setPhone(String phone) { this.phone = phone; }
-  public void setEmail(String email) { this.email = email; }
-  public void setEstablishedYear(Integer establishedYear) { this.establishedYear = establishedYear; }
-  public void setRating(Double rating) { this.rating = rating; }
-  public void setActive(Boolean active) { this.active = active; }
-  public void setDepartments(List<DepartmentDTO> departments) { this.departments = departments; }
-  public void setBeds(BedDTO beds) { this.beds = beds; }
-  public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-  public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+  public String getName() {
+    return name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public Double getLatitude() {
+    return latitude;
+  }
+
+  public Double getLongitude() {
+    return longitude;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public Integer getEstablishedYear() {
+    return establishedYear;
+  }
+
+  public Double getRating() {
+    return rating;
+  }
+
+  public Boolean getActive() {
+    return active;
+  }
+
+  public List<DepartmentDTO> getDepartments() {
+    return departments;
+  }
+
+  public BedDTO getBeds() {
+    return beds;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
+  }
+
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setEstablishedYear(Integer establishedYear) {
+    this.establishedYear = establishedYear;
+  }
+
+  public void setRating(Double rating) {
+    this.rating = rating;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
+
+  public void setDepartments(List<DepartmentDTO> departments) {
+    this.departments = departments;
+  }
+
+  public void setBeds(BedDTO beds) {
+    this.beds = beds;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

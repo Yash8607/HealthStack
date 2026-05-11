@@ -14,14 +14,13 @@ import com.healthcare.repository.BedRepository;
 import com.healthcare.repository.DepartmentRepository;
 import com.healthcare.repository.DoctorRepository;
 import com.healthcare.repository.HospitalRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class HospitalService {
@@ -34,30 +33,34 @@ public class HospitalService {
   @Transactional(readOnly = true)
   public Page<HospitalDTO> search(String query, Pageable pageable) {
     String searchQuery = query != null ? query : "";
-    return hospitalRepository.findByNameContainingIgnoreCaseAndActiveTrue(searchQuery, pageable)
+    return hospitalRepository
+        .findByNameContainingIgnoreCaseAndActiveTrue(searchQuery, pageable)
         .map(this::toDTO);
   }
 
   @Transactional(readOnly = true)
   public HospitalDetailDTO getById(Long id) {
-    Hospital hospital = hospitalRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Hospital with ID " + id + " not found"));
+    Hospital hospital =
+        hospitalRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new ResourceNotFoundException("Hospital with ID " + id + " not found"));
 
     if (!hospital.getActive()) {
       throw new ResourceNotFoundException("Hospital with ID " + id + " not found");
     }
 
     List<Department> departments = departmentRepository.findByHospitalId(id);
-    List<DepartmentDTO> departmentDTOs = departments.stream()
-        .map(this::toDepartmentDTO)
-        .collect(Collectors.toList());
+    List<DepartmentDTO> departmentDTOs =
+        departments.stream().map(this::toDepartmentDTO).collect(Collectors.toList());
 
     List<Bed> beds = bedRepository.findByHospitalId(id);
     BedDTO bedDTO = null;
     if (!beds.isEmpty()) {
       Bed bed = beds.get(0);
-      bedDTO = new BedDTO(bed.getId(), bed.getTotalBeds(), bed.getOccupiedBeds(),
-          bed.getAvailableBeds());
+      bedDTO =
+          new BedDTO(
+              bed.getId(), bed.getTotalBeds(), bed.getOccupiedBeds(), bed.getAvailableBeds());
     }
 
     return toDetailDTO(hospital, departmentDTOs, bedDTO);
@@ -66,9 +69,7 @@ public class HospitalService {
   @Transactional(readOnly = true)
   public List<HospitalDTO> getNearby(Double latitude, Double longitude, Double radiusKm) {
     List<Hospital> hospitals = hospitalRepository.findNearby(latitude, longitude, radiusKm);
-    return hospitals.stream()
-        .map(this::toDTO)
-        .collect(Collectors.toList());
+    return hospitals.stream().map(this::toDTO).collect(Collectors.toList());
   }
 
   private HospitalDTO toDTO(Hospital hospital) {
@@ -84,22 +85,16 @@ public class HospitalService {
         hospital.getRating(),
         hospital.getActive(),
         hospital.getCreatedAt(),
-        hospital.getUpdatedAt()
-    );
+        hospital.getUpdatedAt());
   }
 
   private DepartmentDTO toDepartmentDTO(Department department) {
     List<Doctor> doctors = doctorRepository.findByDepartmentId(department.getId());
-    List<DoctorDTO> doctorDTOs = doctors.stream()
-        .map(this::toDoctorDTO)
-        .collect(Collectors.toList());
+    List<DoctorDTO> doctorDTOs =
+        doctors.stream().map(this::toDoctorDTO).collect(Collectors.toList());
 
     return new DepartmentDTO(
-        department.getId(),
-        department.getName(),
-        department.getDescription(),
-        doctorDTOs
-    );
+        department.getId(), department.getName(), department.getDescription(), doctorDTOs);
   }
 
   private DoctorDTO toDoctorDTO(Doctor doctor) {
@@ -108,12 +103,11 @@ public class HospitalService {
         doctor.getName(),
         doctor.getSpecialization(),
         doctor.getQualification(),
-        doctor.getPhone()
-    );
+        doctor.getPhone());
   }
 
-  private HospitalDetailDTO toDetailDTO(Hospital hospital, List<DepartmentDTO> departments,
-                                         BedDTO beds) {
+  private HospitalDetailDTO toDetailDTO(
+      Hospital hospital, List<DepartmentDTO> departments, BedDTO beds) {
     return new HospitalDetailDTO(
         hospital.getId(),
         hospital.getName(),
@@ -128,7 +122,6 @@ public class HospitalService {
         departments,
         beds,
         hospital.getCreatedAt(),
-        hospital.getUpdatedAt()
-    );
+        hospital.getUpdatedAt());
   }
 }
