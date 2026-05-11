@@ -432,6 +432,23 @@ curl -X GET http://localhost:8080/api/v1/emergency/hospital/1
 
 ---
 
+## Frontend Form — Patient Details Fields
+
+Form at `features/emergency_assistance/components/EmergencyAssistancePatientSection.tsx`.
+
+| Order | Label | Field | Type | Validation |
+|-------|-------|-------|------|-----------|
+| 1 | PATIENT NAME | `patientName` | text | — |
+| 2 | PHONE NUMBER | `phoneNumber` | tel | — |
+| 3 | EMAIL ADDRESS | `email` | email | Required, valid email format (validated on blur) |
+| 4 | LOCATION | `location` | text | — |
+| 5 | EMERGENCY NOTES | `emergencyNotes` | textarea | — |
+
+`email` maps to `userEmail` in the POST `/api/v1/emergency` request body.
+
+---
+
 ## Changelog
 
+- **2026-05-12** – Added Email Address field to Patient Details form; `form.email` maps to `userEmail` in submit payload; inline email format validation on blur
 - **2026-05-07** – Initial API documentation generated from controller code

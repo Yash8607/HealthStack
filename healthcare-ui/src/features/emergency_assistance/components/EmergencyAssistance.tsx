@@ -16,6 +16,7 @@ export const EmergencyAssistance: React.FC = () => {
     emergencyType: '',
     patientName: '',
     phoneNumber: '',
+    email: '',
     location: '',
     emergencyNotes: '',
   });
@@ -33,7 +34,7 @@ export const EmergencyAssistance: React.FC = () => {
   };
 
   const handlePatientChange = (
-    field: 'patientName' | 'phoneNumber' | 'location' | 'emergencyNotes',
+    field: 'patientName' | 'phoneNumber' | 'email' | 'location' | 'emergencyNotes',
     value: string,
   ) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -64,6 +65,7 @@ export const EmergencyAssistance: React.FC = () => {
           values={{
             patientName: form.patientName,
             phoneNumber: form.phoneNumber,
+            email: form.email,
             location: form.location,
             emergencyNotes: form.emergencyNotes,
           }}

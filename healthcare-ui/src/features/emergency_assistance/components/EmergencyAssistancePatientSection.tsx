@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface PatientDetails {
   patientName: string;
   phoneNumber: string;
+  email: string;
   location: string;
   emergencyNotes: string;
 }
@@ -12,9 +13,14 @@ interface EmergencyAssistancePatientSectionProps {
   onChange: (field: keyof PatientDetails, value: string) => void;
 }
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const EmergencyAssistancePatientSection: React.FC<
   EmergencyAssistancePatientSectionProps
 > = ({ values, onChange }) => {
+  const [emailTouched, setEmailTouched] = useState(false);
+  const emailInvalid = emailTouched && values.email.length > 0 && !EMAIL_REGEX.test(values.email);
+
   return (
     <div className="bg-surface-container-lowest rounded-2xl shadow-clinical-lift p-5">
       <div className="flex items-center gap-3 mb-5">
@@ -62,6 +68,28 @@ export const EmergencyAssistancePatientSection: React.FC<
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-on-surface-variant text-sm font-body focus:outline-none focus:ring-2 focus:ring-tertiary/40 focus:border-tertiary"
             />
           </div>
+        </div>
+
+        <div>
+          <label className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant block mb-1.5">
+            Email Address
+          </label>
+          <div className="relative">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+              mail
+            </span>
+            <input
+              type="email"
+              value={values.email}
+              onChange={(e) => onChange('email', e.target.value)}
+              onBlur={() => setEmailTouched(true)}
+              placeholder="Enter email address"
+              className={`w-full pl-10 pr-4 py-3 rounded-xl bg-surface-container-low border text-on-surface placeholder:text-on-surface-variant text-sm font-body focus:outline-none focus:ring-2 focus:ring-tertiary/40 focus:border-tertiary ${emailInvalid ? 'border-error focus:ring-error/40 focus:border-error' : 'border-outline-variant'}`}
+            />
+          </div>
+          {emailInvalid && (
+            <p className="text-error text-[10px] mt-1 font-medium">Enter a valid email address</p>
+          )}
         </div>
 
         <div>
